@@ -127,7 +127,7 @@ export default {
         let vertex = this.graph.insertVertex(parent, null, null, x, y, w, h, shape)
 
         vertex.customer = true
-        vertex.setValue(toolItem) // 重点，设置value
+        vertex.setValue(this.R.clone(toolItem)) // 重点，设置value
       } finally {
         this.graph.getModel().endUpdate()
       }
