@@ -9,8 +9,10 @@ import store from './store';
 
 // 引入组件库及其组件库样式
 import ElementUI from 'element-ui';
-
 Vue.use(ElementUI);
+
+import * as R from 'ramda'
+Vue.prototype.R = R
 
 Vue.config.productionTip = false;
 

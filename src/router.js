@@ -27,6 +27,14 @@ export const demoRouter = [
       title: '工具箱'
     },
     component: () => import('@/views/example/toolbar')
+  },
+  {
+    path: 'customToolbar',
+    name: 'customToolbar',
+    meta: {
+      title: '自定义工具箱'
+    },
+    component: () => import('@/views/example/customToolbar/customToolbar')
   }
 ]
 

@@ -11,9 +11,10 @@
     "@vue/cli": "^3.4.1",
     "element-ui": "^2.8.2",
     "mxgraph": "^3.9.12",
+    "ramda": "^0.26.1",
     "vue": "^2.6.6",
-    "vuex": "^3.0.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",

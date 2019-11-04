@@ -18,9 +18,6 @@ export default {
   components: {windowMenu},
   computed: {
     demoRouter: () => demoRouter
-  },
-  mounted() {
-    console.info(demoRouter)
   }
 }
 </script>
