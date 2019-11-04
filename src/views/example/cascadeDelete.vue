@@ -116,10 +116,10 @@ export default {
           this.deleteCells({cells: this.graph.getSelectionCells(), includeEdges: true})
         })
         menu.addSeparator()
-        menu.addItem('前进(ctrl + y)', null, () => {
+        menu.addItem('redo', null, () => {
           this.redo()
         })
-        menu.addItem('后退(ctrl + z)', null, () => {
+        menu.addItem('undo', null, () => {
           this.undo()
         })
       }
@@ -179,12 +179,6 @@ export default {
 .m_container {
   width: 100%;
   height: 100%;
-}
-
-.m_graph_tool_box {
-  width: 100%;
-  height: 30px;
-  background: #eeeeee;
 }
 
 .m_graph_container {
