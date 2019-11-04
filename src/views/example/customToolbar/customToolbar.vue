@@ -8,6 +8,9 @@
         </li>
       </ul>
     </div>
+    <el-button type="success" @click="showCellsValue" class="showInfoButton">
+      显示CELLS值
+    </el-button>
     <div class="graphContainer" ref="container"></div>
   </div>
 </template>
@@ -31,6 +34,9 @@ export default {
         {
           icon: require('./icon/input.png'),
           title: '输入',
+          data: {
+            tmpAttr: ''
+          },
           style: {
             width: 50,
             height: 50,
@@ -40,6 +46,9 @@ export default {
         {
           icon: require('./icon/output.png'),
           title: '输出',
+          data: {
+            tmpAttr: ''
+          },
           style: {
             width: 50,
             height: 50,
@@ -52,6 +61,7 @@ export default {
   methods: {
     createGraph() {
       this.graph = new MxGraph(this.$refs.container)
+      this.$refs.container.style.background = 'url("./mxgraph/images/grid.gif")'
     },
     initGraph() {
       if (this.R.isNil(this.graph)) {
@@ -70,8 +80,11 @@ export default {
         if (this.R.isNil(obj)) {
           return
         }
-        this.$alert(JSON.stringify(obj), `双击了 ${obj['title']}`, {
-          confirmButtonText: '确定'
+        this.$prompt('修改值', `双击了 ${obj['title']}`, {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({value}) => {
+          obj['data']['tmpAttr'] = value
         })
       })
     },
@@ -113,6 +126,7 @@ export default {
       try {
         let vertex = this.graph.insertVertex(parent, null, null, x, y, w, h, shape)
 
+        vertex.customer = true
         vertex.setValue(toolItem) // 重点，设置value
       } finally {
         this.graph.getModel().endUpdate()
@@ -137,6 +151,27 @@ export default {
 
       inputStyle[MxConstants.STYLE_IMAGE] = require('./icon/input.png')
       this.graph.getStylesheet().putCellStyle('input', inputStyle)
+    },
+    showCellsValue() {
+      if (this.R.isNil(this.graph)) {
+        return
+      }
+      const cells = this.R.values(this.R.path(['model', 'cells'], this.graph))
+      const result = this.R.filter(this.R.complement(this.R.isNil), cells.map((cell) => {
+        if (!cell['customer']) {
+          return null
+        }
+        const geometry = cell['geometry']
+        const data = cell['value']['data']
+
+        return {
+          x: geometry['x'],
+          y: geometry['y'],
+          tmpAttr: data['tmpAttr']
+        }
+      }))
+
+      this.$alert(JSON.stringify(result))
     }
   },
   mounted() {
@@ -153,6 +188,7 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  position: relative;
 
   .toolbarContainer {
     flex: 1;
@@ -180,6 +216,13 @@ export default {
         }
       }
     }
+  }
+
+  .showInfoButton {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
   }
 
   .graphContainer {
