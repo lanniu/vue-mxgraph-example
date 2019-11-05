@@ -16,12 +16,20 @@
 </template>
 
 <script>
+class FOO {
+  constructor() {
+    this.tmpAttr = Math.random()
+  }
+}
+
 import {
   mxGraph as MxGraph,
   mxUtils as MxUtils,
   mxEvent as MxEvent,
+  mxCodec as MxCodec,
   mxConstants as MxConstants,
-  mxRubberband as MxRubberBand
+  mxRubberband as MxRubberBand,
+  mxObjectCodec as MxObjectCodec
 } from 'mxgraph/javascript/mxClient'
 
 export default {
@@ -34,9 +42,6 @@ export default {
         {
           icon: require('./icon/input.png'),
           title: '输入',
-          data: {
-            tmpAttr: ''
-          },
           style: {
             width: 50,
             height: 50,
@@ -46,9 +51,6 @@ export default {
         {
           icon: require('./icon/output.png'),
           title: '输出',
-          data: {
-            tmpAttr: ''
-          },
           style: {
             width: 50,
             height: 50,
@@ -71,7 +73,7 @@ export default {
       this.graph.setConnectable(true) // 允许连线
       this.graph.setCellsEditable(false) // 不可修改
       this.graph.convertValueToString = (cell) => { // 从value中获取显示的内容
-        return this.R.path(['value', 'title'], cell)
+        return this.R.prop('title', cell)
       }
       this.graph.addListener(MxEvent.DOUBLE_CLICK, (graph, evt) => { // 监听双击事件
         let cell = this.R.pathOr([], ['properties', 'cell'], evt)
@@ -80,13 +82,54 @@ export default {
         if (this.R.isNil(obj)) {
           return
         }
-        this.$prompt('修改值', `双击了 ${obj['title']}`, {
+        this.$prompt('修改值', `双击了 ${cell['title']}`, {
           confirmButtonText: '确定',
           cancelButtonText: '取消'
         }).then(({value}) => {
-          obj['data']['tmpAttr'] = value
+          obj['tmpAttr'] = value
         })
       })
+      // 以下是为了特殊的需求
+      MxObjectCodec.prototype.encode = function (enc, obj) {
+        let node = enc.document.createElement(this.getName())
+
+        obj = this.beforeEncode(enc, obj, node)
+        const tmpNode = this.encodeObject(enc, obj, node)
+
+        if (tmpNode !== undefined && tmpNode !== null) {
+          return tmpNode
+        }
+        return this.afterEncode(enc, obj, node)
+      }
+      MxObjectCodec.prototype.encodeObject = function (enc, obj, node) {
+        enc.setAttribute(node, 'id', enc.getId(obj))
+
+        const names = Object.keys(obj)
+        const valueIndex = names.indexOf('value')
+        let needConvert = obj['customer'] && valueIndex !== -1
+
+        if (needConvert) {
+          names.splice(valueIndex, 1)
+        }
+        names.forEach((name) => {
+          let value = obj[name]
+
+          if (value != null && !this.isExcluded(obj, name, value, true)) {
+            if (MxUtils.isInteger(name)) {
+              name = null
+            }
+            this.encodeValue(enc, obj, name, value, node)
+          }
+        })
+        if (needConvert) {
+          const valueNode = enc.encode(obj['value'])
+          const tmpNode = node
+
+          node = valueNode
+          node.appendChild(tmpNode)
+          return node
+        }
+      }
     },
     makeItemDraggable() {
       this.$nextTick(() => {
@@ -126,8 +169,9 @@ export default {
       try {
         let vertex = this.graph.insertVertex(parent, null, null, x, y, w, h, shape)
 
+        vertex.title = toolItem['title']
         vertex.customer = true
-        vertex.setValue(this.R.clone(toolItem)) // 重点，设置value
+        vertex.setValue(new FOO()) // 重点，设置value
       } finally {
         this.graph.getModel().endUpdate()
       }
@@ -139,7 +183,8 @@ export default {
       const outputStyle = {}
 
       outputStyle[MxConstants.STYLE_FILLCOLOR] = 'transparent'
-      outputStyle[MxConstants.STYLE_STROKECOLOR] = 'transparent'
+      outputStyle[MxConstants.STYLE_STROKECOLOR] = '#000000'
+      outputStyle[MxConstants.STYLE_STROKEWIDTH] = '1'
       outputStyle[MxConstants.STYLE_SHAPE] = MxConstants.SHAPE_LABEL
       outputStyle[MxConstants.STYLE_ALIGN] = MxConstants.ALIGN_CENTER
       outputStyle[MxConstants.STYLE_VERTICAL_ALIGN] = MxConstants.ALIGN_BOTTOM
@@ -156,22 +201,13 @@ export default {
       if (this.R.isNil(this.graph)) {
         return
       }
-      const cells = this.R.values(this.R.path(['model', 'cells'], this.graph))
-      const result = this.R.filter(this.R.complement(this.R.isNil), cells.map((cell) => {
-        if (!cell['customer']) {
-          return null
-        }
-        const geometry = cell['geometry']
-        const data = cell['value']['data']
+      const encoder = new MxCodec()
+      const node = encoder.encode(this.graph.model)
+      const xml = MxUtils.getPrettyXml(node)
 
-        return {
-          x: geometry['x'],
-          y: geometry['y'],
-          tmpAttr: data['tmpAttr']
-        }
-      }))
+      console.info(xml)
 
-      this.$alert(JSON.stringify(result))
+      this.$alert(xml)
     }
   },
   mounted() {
