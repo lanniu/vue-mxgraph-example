@@ -9,6 +9,7 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@master
+      
     - name: buildAndDeploy
       uses: JamesIves/github-pages-deploy-action@master
       env:
