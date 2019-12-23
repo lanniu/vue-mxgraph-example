@@ -1,0 +1,15 @@
+stages:
+  - build_image
+ 
+before_script:
+  - docker info 
+ 
+build_image:
+  stage: build_image
+  script:
+    - npm run docker_build
+    - npm run docker_delete_exist
+    - npm run docker_deploy
+  tags:
+    - deploy
+    

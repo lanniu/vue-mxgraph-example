@@ -1,0 +1,37 @@
+{
+  "name": "vue-mxgraph-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "docker_build": "docker build -t lanniu/vue-mxgraph-example .",
+    "docker_delete_exist": "chmod +x ./docker_delete_container_by_name.sh && ./docker_delete_container_by_name.sh vue-mxgraph-example",
+    "docker_deploy": "docker run -id -p 3221:80 --name vue-mxgraph-example lanniu/vue-mxgraph-example"
+  },
+  "dependencies": {
+    "@vue/cli": "^3.4.1",
+    "core-js": "^2.6.5",
+    "element-ui": "^2.8.2",
+    "mxgraph": "^3.9.12",
+    "node-sass": "^4.13.0",
+    "ramda": "^0.26.1",
+    "rxjs": "^6.5.3",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.4.0",
+    "@vue/cli-plugin-eslint": "^3.4.0",
+    "@vue/cli-service": "^3.4.0",
+    "sass-loader": "^8.0.0",
+    "script-loader": "^0.7.2",
+    "exports-loader": "^0.7.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
