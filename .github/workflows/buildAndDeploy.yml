@@ -1,0 +1,18 @@
+name: buildAndDeploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  buildAndDeploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+    - name: buildAndDeploy
+      uses: JamesIves/github-pages-deploy-action@master
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: graphPage
+        FOLDER: dist
+        BUILD_SCRIPT: npm install && npm run build
