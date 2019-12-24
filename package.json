@@ -15,7 +15,7 @@
     "@vue/cli": "^3.4.1",
     "core-js": "^2.6.5",
     "element-ui": "^2.8.2",
-    "mxgraph": "^3.9.12",
+    "mxgraph": "^4.0.6",
     "node-sass": "^4.13.0",
     "ramda": "^0.26.1",
     "rxjs": "^6.5.3",

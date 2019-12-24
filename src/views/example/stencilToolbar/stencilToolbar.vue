@@ -17,7 +17,7 @@
         </el-collapse-item>
       </el-collapse>
     </div>
-    <div class="graphContainer" ref="container"></div>
+    <div class="graphContainer" tabindex="1" ref="container"></div>
   </div>
 </template>
 
@@ -26,7 +26,6 @@ import {
   mxUtils as MxUtils,
   mxGraph as MxGraph,
   mxEvent as MxEvent,
-  mxCodec as MxCodec,
   mxKeyHandler as MxKeyHandler,
   mxRubberband as MxRubberBand,
   mxConstants as MxConstants,
@@ -42,13 +41,41 @@ export default {
     return {
       graph: null,
       keyHandler: null,
-      palettes: {}
+      palettes: {},
+      jsonStr: ''
     }
   },
   methods: {
     createGraph() {
       this.graph = new MxGraph(this.$refs.container)
       this.$refs.container.style.background = 'url("./mxgraph/images/grid.gif")'
+    },
+    encode(graph) {
+      const JSONGetter = this.R.compose(
+        JSON.stringify, // 序列化
+        this.R.map(this.R.pick(['style', 'geometry'])), // 取出cell的style和geometry
+        this.R.filter(this.R.propEq('customer', true)), // 过滤出有用的cell
+        this.R.values, this.R.propOr({}, 'cells') // 获取model中的所有的cell
+      )
+
+      return JSONGetter(graph.getModel())
+    },
+    decode(jsonStr, graph) {
+      const nodes = JSON.parse(jsonStr)
+      const parent = graph.getDefaultParent()
+
+      this.R.forEach((node) => {
+        const {x, y, width, height} = node['geometry']
+
+        graph.getModel().beginUpdate()
+        try {
+          let vertex = graph.insertVertex(parent, null, null, x, y, width, height, node['style'])
+
+          vertex.customer = true
+        } finally {
+          graph.getModel().endUpdate()
+        }
+      }, nodes)
     },
     initGraph() {
       if (this.R.isNil(this.graph)) {
@@ -64,25 +91,28 @@ export default {
 
         this.graph.removeCells(cells, true)
       })
+
       this.graph.popupMenuHandler.factoryMethod = (menu) => {
         menu.addItem('导出', null, () => {
-          const encoder = new MxCodec()
-          const result = encoder.encode(this.graph.getModel())
-
-          this.xml = MxUtils.getPrettyXml(result)
+          this.jsonStr = this.encode(this.graph)
+          this.$alert(this.jsonStr)
           this.$message('导出成功')
         })
         menu.addSeparator()
         menu.addItem('导入', null, () => {
-          const xmlDocument = MxUtils.parseXml(this.xml)
+          this.$confirm('为了使导入的效果明显，会先删除所有现有的cell，并在1秒后执行导入！！！', '提示',)
+            .then(() => {
+              this.graph.selectAll()
+              this.graph.removeCells(this.graph.getSelectionCells())
+              setTimeout(() => {
+                this.decode(this.jsonStr, this.graph)
+                this.$message('导入成功')
+              }, 1000)
+            })
+            .catch(() => {
 
-          if (xmlDocument.documentElement != null && xmlDocument.documentElement.nodeName === 'mxGraphModel') {
-            const decoder = new MxCodec(xmlDocument)
-            const node = xmlDocument.documentElement
-            const model = decoder.decode(node, this.graph.getModel())
-            console.log(model)
-            this.$message('导入成功')
-          }
+            })
+
         })
       }
     },
@@ -201,6 +231,7 @@ export default {
   }
 
   .graphContainer {
+    outline: none;
     position: relative;
     flex: 7;
   }
