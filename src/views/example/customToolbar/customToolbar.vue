@@ -9,7 +9,7 @@
       </ul>
     </div>
     <el-button type="success" @click="showCellsValue" class="showInfoButton">
-      显示CELLS值
+      显示XML
     </el-button>
     <div class="graphContainer" ref="container"></div>
   </div>
@@ -29,13 +29,13 @@ import {
   mxCodec as MxCodec,
   mxConstants as MxConstants,
   mxRubberband as MxRubberBand,
-  mxObjectCodec as MxObjectCodec
 } from 'mxgraph/javascript/mxClient'
 
 export default {
   name: 'customToolbar',
   data() {
     return {
+      encoder: null,
       graph: null,
       rubberBand: null,
       toolbarItems: [ // 可以把数据放在这
@@ -89,47 +89,6 @@ export default {
           obj['tmpAttr'] = value
         })
       })
-      // 以下是为了特殊的需求
-      MxObjectCodec.prototype.encode = function (enc, obj) {
-        let node = enc.document.createElement(this.getName())
-
-        obj = this.beforeEncode(enc, obj, node)
-        const tmpNode = this.encodeObject(enc, obj, node)
-
-        if (tmpNode !== undefined && tmpNode !== null) {
-          return tmpNode
-        }
-        return this.afterEncode(enc, obj, node)
-      }
-      MxObjectCodec.prototype.encodeObject = function (enc, obj, node) {
-        enc.setAttribute(node, 'id', enc.getId(obj))
-
-        const names = Object.keys(obj)
-        const valueIndex = names.indexOf('value')
-        let needConvert = obj['customer'] && valueIndex !== -1
-
-        if (needConvert) {
-          names.splice(valueIndex, 1)
-        }
-        names.forEach((name) => {
-          let value = obj[name]
-
-          if (value != null && !this.isExcluded(obj, name, value, true)) {
-            if (MxUtils.isInteger(name)) {
-              name = null
-            }
-            this.encodeValue(enc, obj, name, value, node)
-          }
-        })
-        if (needConvert) {
-          const valueNode = enc.encode(obj['value'])
-          const tmpNode = node
-
-          node = valueNode
-          node.appendChild(tmpNode)
-          return node
-        }
-      }
     },
     makeItemDraggable() {
       this.$nextTick(() => {
@@ -204,8 +163,6 @@ export default {
       const encoder = new MxCodec()
       const node = encoder.encode(this.graph.model)
       const xml = MxUtils.getPrettyXml(node)
-
-      console.info(xml)
 
       this.$alert(xml)
     }
