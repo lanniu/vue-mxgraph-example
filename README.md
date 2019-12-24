@@ -1,6 +1,6 @@
 ![image](http://picture.lanniu.top/vue-mxgraph.png)
 
-[在线预览](https://lanniu.github.io/vue-mxgraph-example)
+[在线预览](https://demo.mxgraph.lanniu.top/)
 
 # vue-mxgraph-example 
 
