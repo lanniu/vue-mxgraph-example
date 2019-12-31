@@ -16,7 +16,7 @@
       </ul>
     </div>
     <div class="graphContainer" ref="container"></div>
-    <change-status-dialog ref="dialog"></change-status-dialog>
+    <change-status-dialog ref="dialog"/>
   </div>
 </template>
 

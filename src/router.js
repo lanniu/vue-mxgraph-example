@@ -34,7 +34,7 @@ export const demoRouter = [
     meta: {
       title: '自定义工具箱'
     },
-    component: () => import('@/views/example/customToolbar/customToolbar')
+    component: () => import('@/views/example/customToolbar')
   },
   {
     path: 'htmlLabel',
@@ -42,7 +42,7 @@ export const demoRouter = [
     meta: {
       title: 'HTML标签'
     },
-    component: () => import('@/views/example/htmlLabel/htmlLabel')
+    component: () => import('@/views/example/htmlLabel')
   },
   {
     path: 'edgeStyle',
@@ -50,7 +50,7 @@ export const demoRouter = [
     meta: {
       title: '连线样式'
     },
-    component: () => import('@/views/example/edgeStyle/edgeStyle')
+    component: () => import('@/views/example/edgeStyle')
   },
   {
     path: 'customConnectionConstraints',
@@ -58,7 +58,7 @@ export const demoRouter = [
     meta: {
       title: '自定义连接点'
     },
-    component: () => import('@/views/example/customConnectionConstraints/customConnectionConstraints')
+    component: () => import('@/views/example/customConnectionConstraints')
   },
   {
     path: 'manualDrawing',
@@ -66,7 +66,7 @@ export const demoRouter = [
     meta: {
       title: '手动绘图'
     },
-    component: () => import('@/views/example/manualDrawing/manualDrawing')
+    component: () => import('@/views/example/manualDrawing')
   },
   {
     path: 'stencilToolbar',
@@ -74,7 +74,15 @@ export const demoRouter = [
     meta: {
       title: 'mxStencil + toolbar'
     },
-    component: () => import('@/views/example/stencilToolbar/stencilToolbar')
+    component: () => import('@/views/example/stencilToolbar')
+  },
+  {
+    path: 'graphEditor',
+    name: 'graphEditor',
+    meta: {
+      title: 'graphEditor'
+    },
+    component: () => import('@/views/example/graphEditor')
   }
 ]
 
@@ -83,7 +91,7 @@ export const globalRouter = [
     path: '/',
     name: 'home',
     redirect: '/welcome',
-    component: () => import('./views/Home.vue'),
+    component: () => import('./views/layout'),
     children: [
       ...demoRouter
     ]

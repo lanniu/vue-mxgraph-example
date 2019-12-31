@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="m_graph_container">
+  <div ref="container" class="graphContainer">
   </div>
 </template>
 
@@ -106,10 +106,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.m_graph_container {
-  height: 100%;
-  width: 100%;
-}
-</style>
