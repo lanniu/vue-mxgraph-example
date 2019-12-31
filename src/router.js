@@ -41,6 +41,15 @@ export const demoRouter = [
     component: () => import('@/views/example/customToolbar')
   },
   {
+    path: 'stencilToolbar',
+    name: 'stencilToolbar',
+    meta: {
+      title: '模板工具箱',
+      icon: require('@/assets/icon/stencil.png')
+    },
+    component: () => import('@/views/example/stencilToolbar')
+  },
+  {
     path: 'htmlLabel',
     name: 'htmlLabel',
     meta: {
@@ -77,19 +86,10 @@ export const demoRouter = [
     component: () => import('@/views/example/manualDrawing')
   },
   {
-    path: 'stencilToolbar',
-    name: 'stencilToolbar',
-    meta: {
-      title: 'mxStencil + toolbar',
-      icon: require('@/assets/icon/stencil.png')
-    },
-    component: () => import('@/views/example/stencilToolbar')
-  },
-  {
     path: 'graphEditor',
     name: 'graphEditor',
     meta: {
-      title: 'graphEditor',
+      title: '简易编辑器',
       icon: require('@/assets/icon/editor.png')
     },
     component: () => import('@/views/example/graphEditor')
