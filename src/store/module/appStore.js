@@ -18,8 +18,10 @@ const appStore = {
     setSidebarCollapse: (state, collapse) => {
       state.sidebarCollapse = collapse
     },
-    addOneTagFromContainerById: () => {
+    DELETE_TAG: (state, tag) => {
+      const {name} = tag
 
+      vue.delete(state.tagsContainer, name)
     },
     ADD_TAG: (state, tag) => {
       const {name} = tag
@@ -35,6 +37,9 @@ const appStore = {
 
       commit('ADD_TAG', tag)
       return findIndex(equals(name), Object.keys(state.tagsContainer))
+    },
+    deleteOneTagFromContainer: ({commit}, tag) => {
+      commit('DELETE_TAG', tag)
     }
   }
 }

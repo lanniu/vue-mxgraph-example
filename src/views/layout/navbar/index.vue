@@ -10,11 +10,16 @@
     <div class="tagsContainer">
       <span v-for="tag in Object.values(tagsContainer)"
             class="tagItem"
-            @click="$router.push(tag['name'])"
+            @mouseup="clickHandler(tag, $event)"
             :key="tag['name']"
             :class="Object.is(activeKey, tag['name']) ? 'tagItemActive' : ''"
       >
         {{tag['meta']['title']}}
+        <i class="tagCloseIcon el-icon-close"
+           @mouseover="mouseoverHandler"
+           @mouseleave="mouseleaveHandler"
+           @click="deleteOneTagFromContainer(tag)"
+        />
       </span>
     </div>
   </div>
@@ -48,16 +53,57 @@ export default {
         this.addOneTagToContainer(this.$route)
       },
       immediate: true
+    },
+    activeKey() {
+      if (this.R.isNil(this.activeKey)) {
+        this.addOneTagToContainer(this.$route)
+        return
+      }
+      this.$router.push(this.activeKey)
     }
   },
   data() {
     return {
-      activeIndex: -1
+      activeIndex: -1,
+      deleteTimeOut: null
     }
   },
   methods: {
     collapse() {
       this.isCollapse = !this.isCollapse
+    },
+    clickHandler(tag, evt) {
+      const {button} = evt
+
+      if (Object.is(0, button)) {
+        this.$router.push(tag['name'])
+      }
+      if (Object.is(1, button)) {
+        this.deleteOneTagFromContainer(tag)
+      }
+    },
+    mouseleaveHandler(evt) {
+      if (!this.R.isNil(this.deleteTimeOut)) {
+        clearTimeout(this.deleteTimeOut)
+      }
+      evt.target.parentNode.classList.remove('tagItemDelete')
+      evt.target.classList.remove('el-icon-circle-close')
+      evt.target.classList.add('el-icon-close') },
+    mouseoverHandler(evt) {
+      this.deleteTimeOut = setTimeout(() => {
+        evt.target.parentNode.classList.add('tagItemDelete')
+        evt.target.classList.remove('el-icon-close')
+        evt.target.classList.add('el-icon-circle-close')
+      }, 300)
+    },
+    deleteOneTagFromContainer(item) {
+      this.$store.dispatch('deleteOneTagFromContainer', item)
+      if (this.activeIndex >= Object.keys(this.tagsContainer).length) {
+        this.activeIndex--
+      }
+      if (Object.is(-1, this.activeIndex)) {
+        this.$router.push('welcome')
+      }
     },
     async addOneTagToContainer(item) {
       this.activeIndex = await this.$store.dispatch('addOneTagToContainer', item)
@@ -85,7 +131,7 @@ export default {
     }
 
     .title {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       margin-left: 1rem;
     }
   }
@@ -104,11 +150,20 @@ export default {
       font-size: 0.8rem;
       padding: 3px 10px;
       margin-left: 5px;
-      cursor: pointer;
       background: #efefef;
+      transition: all 0.3s;
+
+      .tagCloseIcon {
+        cursor: pointer;
+      }
 
       &.tagItemActive {
         background: #37bb44;
+        color: #efefef;
+      }
+
+      &.tagItemDelete {
+        background: #bb3a3e;
         color: #efefef;
       }
     }
