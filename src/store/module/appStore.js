@@ -3,7 +3,7 @@ import vue from 'vue'
 
 const appStore = {
   state: {
-    sidebarCollapse: false,
+    sidebarCollapse: true,
     tagsContainer: {}
   },
   getters: {

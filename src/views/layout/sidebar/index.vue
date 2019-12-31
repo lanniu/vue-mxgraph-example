@@ -11,7 +11,8 @@
       </a>
       <template v-for="router in demoRouter">
         <el-menu-item :key="router['name']" :index="router['name']">
-          <i class="el-icon-menu"/>
+          <img v-if="router['meta']['icon']" class="menuIcon" :src="router['meta']['icon']" alt=""/>
+          <i v-else class="el-icon-menu"/>
           <span slot="title">{{router['meta']['title']}}</span>
         </el-menu-item>
       </template>
@@ -39,6 +40,11 @@ export default {
 </script>
 
 <style lang="scss">
+.menuIcon {
+  height: 20px;
+  margin-right: 8px;
+}
+
 .sidebarLogo {
   display: inline-block;
   width: 100%;

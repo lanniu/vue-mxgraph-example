@@ -8,7 +8,8 @@ export const demoRouter = [
     path: 'welcome',
     name: 'welcome',
     meta: {
-      title: '欢迎页'
+      title: '欢迎页',
+      icon: require('@/assets/icon/home.png')
     },
     component: () => import('@/views/example/welcome')
   },
@@ -16,7 +17,8 @@ export const demoRouter = [
     path: 'cascadeDelete',
     name: 'cascadeDelete',
     meta: {
-      title: '联级删除'
+      title: '联级删除',
+      icon: require('@/assets/icon/delete.png')
     },
     component: () => import('@/views/example/cascadeDelete')
   },
@@ -24,7 +26,8 @@ export const demoRouter = [
     path: 'toolbar',
     name: 'toolbar',
     meta: {
-      title: '工具箱'
+      title: '工具箱',
+      icon: require('@/assets/icon/toolbar.png')
     },
     component: () => import('@/views/example/toolbar')
   },
@@ -32,7 +35,8 @@ export const demoRouter = [
     path: 'customToolbar',
     name: 'customToolbar',
     meta: {
-      title: '自定义工具箱'
+      title: '自定义工具箱',
+      icon: require('@/assets/icon/toolbar2.png')
     },
     component: () => import('@/views/example/customToolbar')
   },
@@ -40,7 +44,8 @@ export const demoRouter = [
     path: 'htmlLabel',
     name: 'htmlLabel',
     meta: {
-      title: 'HTML标签'
+      title: 'HTML标签',
+      icon: require('@/assets/icon/label.png')
     },
     component: () => import('@/views/example/htmlLabel')
   },
@@ -48,7 +53,8 @@ export const demoRouter = [
     path: 'edgeStyle',
     name: 'edgeStyle',
     meta: {
-      title: '连线样式'
+      title: '连线样式',
+      icon: require('@/assets/icon/line.png')
     },
     component: () => import('@/views/example/edgeStyle')
   },
@@ -56,7 +62,8 @@ export const demoRouter = [
     path: 'customConnectionConstraints',
     name: 'customConnectionConstraints',
     meta: {
-      title: '自定义连接点'
+      title: '自定义连接点',
+      icon: require('@/assets/icon/connectPoint.png')
     },
     component: () => import('@/views/example/customConnectionConstraints')
   },
@@ -64,7 +71,8 @@ export const demoRouter = [
     path: 'manualDrawing',
     name: 'manualDrawing',
     meta: {
-      title: '手动绘图'
+      title: '手动绘图',
+      icon: require('@/assets/icon/handler.png')
     },
     component: () => import('@/views/example/manualDrawing')
   },
@@ -72,7 +80,8 @@ export const demoRouter = [
     path: 'stencilToolbar',
     name: 'stencilToolbar',
     meta: {
-      title: 'mxStencil + toolbar'
+      title: 'mxStencil + toolbar',
+      icon: require('@/assets/icon/stencil.png')
     },
     component: () => import('@/views/example/stencilToolbar')
   },
@@ -80,7 +89,8 @@ export const demoRouter = [
     path: 'graphEditor',
     name: 'graphEditor',
     meta: {
-      title: 'graphEditor'
+      title: 'graphEditor',
+      icon: require('@/assets/icon/editor.png')
     },
     component: () => import('@/views/example/graphEditor')
   }
