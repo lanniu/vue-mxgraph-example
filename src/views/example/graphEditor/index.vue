@@ -7,6 +7,7 @@
 <script>
 import {
   mxGraph as MxGraph,
+  mxEvent as MxEvent,
   mxRubberband as MxRubberBand
 } from 'mxgraph/javascript/mxClient'
 import {rewriteInterface, resetScrollbars} from '@/views/example/graphEditor/rewriteInterface'
@@ -16,21 +17,14 @@ export default {
   name: 'graphEditor',
   data() {
     return {
-      scale: 1,
-      cursorPosition: null, // mxGraph 需要的属性
-      cumulativeZoomFactor: 1, // mxGraph 需要的属性
-      updateZoomTimeout: null,
+      container: null,
       graph: null,
       rubberBand: null
     }
   },
   methods: {
     createGraph() {
-      this.graph = new MxGraph(this.$refs.container)
-
-      const state = this.graph.view.getState(this.graph.getModel().getRoot())
-
-      console.info(this.graph.view.getBoundingBox(state))
+      this.graph = new MxGraph(this.container)
     },
     setPageFormat() {
       let format = this.R.prop('format', PAGE_FORMATS[GRAPH_CONFIG.pageInfo.toLowerCase()])
@@ -50,7 +44,10 @@ export default {
       this.graph.pageBreaksVisible = true
       this.graph.pageBreakColor = 'none'
       MxRubberBand.prototype.defaultOpacity = 30
+      MxEvent.disableContextMenu(this.container)
 
+      this.graph.setPanning(true)
+      this.graph.pageScale = GRAPH_CONFIG['scale']
       this.graph.pageScale = GRAPH_CONFIG['scale']
       this.graph.gridSize = GRAPH_CONFIG['gridSize']
       this.graph.gridEnabled = GRAPH_CONFIG['gridEnabled']
@@ -66,6 +63,7 @@ export default {
     }
   },
   mounted() {
+    this.container = this.$refs.container
     this.createGraph()
     this.initGraph()
   }
@@ -79,8 +77,6 @@ export default {
 
   .graphContainer {
     background: #efefef;
-    width: 100%;
-    height: 100%;
   }
 }
 </style>

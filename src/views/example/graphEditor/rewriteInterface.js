@@ -222,9 +222,6 @@ function validate(vueItem) {
       this.translate.x = pad.x - (this.x0 || 0) * size.width
       this.translate.y = pad.y - (this.y0 || 0) * size.height
     }
-    const state = this.graph.view.getState(this.graph.getModel().getRoot())
-
-    console.info(this.graph.view.getBoundingBox(state))
     MxGraphView.prototype.validate.apply(this, arguments)
   }
 }
