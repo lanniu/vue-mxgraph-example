@@ -8,9 +8,14 @@
 import {
   mxGraph as MxGraph,
   mxEvent as MxEvent,
+  mxPoint as MxPoint,
   mxRubberband as MxRubberBand
 } from 'mxgraph/javascript/mxClient'
-import {rewriteInterface, resetScrollbars} from '@/views/example/graphEditor/rewriteInterface'
+import {
+  rewriteInterface,
+  resetScrollbars,
+  lazyZoom
+} from '@/views/example/graphEditor/rewriteInterface'
 import {GRAPH_CONFIG, PAGE_FORMATS} from '@/views/example/graphEditor/graphConfig'
 
 export default {
@@ -19,7 +24,12 @@ export default {
     return {
       container: null,
       graph: null,
-      rubberBand: null
+      rubberBand: null,
+      cursorPosition: null,
+      updateZoomTimeout: null,
+      cumulativeZoomFactor: 1,
+      oldScrollTop: 0,
+      oldScrollLeft: 0
     }
   },
   methods: {
@@ -60,12 +70,43 @@ export default {
       this.graph.sizeDidChange()
 
       resetScrollbars(this)
+
+      this.graph.container.addEventListener('scroll', () => {
+        this.oldScrollTop = this.graph.container.scrollTop
+        this.oldScrollLeft = this.graph.container.scrollLeft
+      }, true)
+      this.graph.container.addEventListener('wheel', (evt) => {
+        if (evt.ctrlKey) {
+          evt.preventDefault()
+        }
+      })
+      MxEvent.addMouseWheelListener((evt, up) => {
+        if (evt.ctrlKey) {
+          let source = MxEvent.getSource(evt)
+
+          while (!this.R.isNil(source)) {
+            if (this.R.equals(source, this.graph.container)) {
+              this.cursorPosition = new MxPoint(MxEvent.getClientX(evt), MxEvent.getClientY(evt))
+              lazyZoom(this, up)
+              return
+            }
+            source = source.parentNode
+          }
+        }
+      })
     }
   },
   mounted() {
     this.container = this.$refs.container
     this.createGraph()
     this.initGraph()
+  },
+  activated() {
+    if (Object.is(0, this.oldScrollLeft) && Object.is(0, this.oldScrollTop)) {
+      this.graph.center()
+      return
+    }
+    this.graph.panGraph(-this.oldScrollLeft, -this.oldScrollTop)
   }
 }
 </script>

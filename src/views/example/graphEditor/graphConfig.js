@@ -4,15 +4,16 @@ import {
 } from 'mxgraph/javascript/mxClient'
 
 export const GRAPH_CONFIG = {
-  gridSteps: 5,
-  minGridSize: 10,
   pageInfo: 'a4',
-  gridColor: '#000000',
-  gridBackgroundColor: '#ffffff',
-  gridBackgroundEnabled: true,
   gridSize: 10,
   gridEnabled: true,
-  scale: 1.00
+  gridSteps: 5,
+  minGridSize: 1,
+  scale: 1.00,
+  gridColor: '#acacac',
+  gridBackgroundEnabled: true,
+  gridBackgroundColor: '#ffffff'
+
 }
 
 const PAGE_FORMATS = {}

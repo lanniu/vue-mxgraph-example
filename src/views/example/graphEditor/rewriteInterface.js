@@ -57,6 +57,54 @@ export function getPageLayout(vueItem) {
   return new MxRectangle(x0, y0, w0, h0)
 }
 
+export function lazyZoom(vueItem, zoomIn) {
+  if (vueItem.updateZoomTimeout !== null) {
+    window.clearTimeout(vueItem.updateZoomTimeout)
+  }
+  const zoomFactor = vueItem.graph.zoomFactor
+  const scale = vueItem.graph.view.scale
+
+  let cumulativeZoomFactor = 1
+
+  if (zoomIn) {
+    if (scale * cumulativeZoomFactor < 0.15) {
+      cumulativeZoomFactor = (scale + 0.01) / scale
+    } else {
+      cumulativeZoomFactor *= zoomFactor
+      cumulativeZoomFactor = Math.round(scale * cumulativeZoomFactor * 20) / 20 / scale
+    }
+  } else {
+    if (scale * cumulativeZoomFactor <= 0.15) {
+      cumulativeZoomFactor = (scale - 0.01) / scale
+    } else {
+      cumulativeZoomFactor /= zoomFactor
+      cumulativeZoomFactor = Math.round(scale * cumulativeZoomFactor * 20) / 20 / scale
+    }
+  }
+  cumulativeZoomFactor = Math.max(0.01, Math.min(scale * cumulativeZoomFactor, 160) / scale)
+  vueItem.updateZoomTimeout = window.setTimeout(() => {
+    const offset = MxUtils.getOffset(vueItem.graph.container)
+    let dx = 0
+    let dy = 0
+
+    if (vueItem.cursorPosition !== null) {
+      dx = vueItem.graph.container.offsetWidth / 2 - vueItem.cursorPosition.x + offset.x
+      dy = vueItem.graph.container.offsetHeight / 2 - vueItem.cursorPosition.y + offset.y
+    }
+    const prev = vueItem.graph.view.scale
+
+    vueItem.graph.zoom(cumulativeZoomFactor)
+    const s = vueItem.graph.view.scale
+    if (s !== prev) {
+      if (MxUtils.hasScrollbars(vueItem.graph.container) && (dx !== 0 || dy !== 0)) {
+        vueItem.graph.container.scrollLeft -= dx * (cumulativeZoomFactor - 1)
+        vueItem.graph.container.scrollTop -= dy * (cumulativeZoomFactor - 1)
+      }
+    }
+    vueItem.updateZoomTimeout = null
+  }, 10)
+}
+
 function createSvgGrid(vue) {
   vue.graph.view.createSvgGrid = function (color) {
     let tmpGridSize = this.graph.gridSize * this.scale
