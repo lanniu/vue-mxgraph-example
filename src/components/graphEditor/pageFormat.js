@@ -2,20 +2,6 @@ import {
   mxConstants as MxConstants,
   mxRectangle as MxRectangle
 } from 'mxgraph/javascript/mxClient'
-
-export const GRAPH_CONFIG = {
-  pageInfo: 'a4',
-  gridSize: 10,
-  gridEnabled: true,
-  gridSteps: 5,
-  minGridSize: 1,
-  scale: 1.00,
-  gridColor: '#acacac',
-  gridBackgroundEnabled: true,
-  gridBackgroundColor: '#ffffff'
-
-}
-
 const PAGE_FORMATS = {}
 
 PAGE_FORMATS['a0'] = {name: 'a0', text: 'A0 (841 mm x 1189 mm)', format: new MxRectangle(0, 0, 4681, 3300)}

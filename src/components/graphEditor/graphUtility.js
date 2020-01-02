@@ -1,5 +1,4 @@
 import * as R from 'ramda'
-import {GRAPH_CONFIG} from '@/views/example/graphEditor/graphConfig'
 import base64Coder from 'Base64'
 import {
   mxConstants as MxConstants,
@@ -105,20 +104,20 @@ export function lazyZoom(vueItem, zoomIn) {
   }, 10)
 }
 
-function createSvgGrid(vue) {
+function createSvgGrid(vue, graphConfig) {
   vue.graph.view.createSvgGrid = function (color) {
     let tmpGridSize = this.graph.gridSize * this.scale
 
-    while (tmpGridSize < GRAPH_CONFIG.minGridSize) {
+    while (tmpGridSize < graphConfig.minGridSize) {
       tmpGridSize *= 2
     }
-    const tmpGridStep = GRAPH_CONFIG.gridSteps * tmpGridSize
+    const tmpGridStep = graphConfig.gridSteps * tmpGridSize
     const size = tmpGridStep
     const d = R.map((index) => {
       const size = index * tmpGridSize
 
       return `M 0 ${size} L ${tmpGridStep} ${size} M ${size} 0 L ${size} ${tmpGridStep}`
-    }, R.range(1, GRAPH_CONFIG.gridSteps))
+    }, R.range(1, graphConfig.gridSteps))
 
     return `<svg width="${size}" height="${size}" xmlns="${MxConstants.NS_SVG}">
                 <defs>
@@ -133,15 +132,15 @@ function createSvgGrid(vue) {
 }
 
 
-function validateBackgroundStyles(vueItem) {
+function validateBackgroundStyles(vueItem, graphConfig) {
   vueItem.graph.view.validateBackgroundStyles = function () {
     let image = 'none'
     let position = ''
     if (this.graph.isGridEnabled()) {
-      image = unescape(encodeURIComponent(this.createSvgGrid(GRAPH_CONFIG.gridColor)))
+      image = unescape(encodeURIComponent(this.createSvgGrid(graphConfig.gridColor)))
       image = base64Coder.btoa(image, true)
       image = `url(data:image/svg+xml;base64,${image})`
-      let phase = this.graph.gridSize * this.scale * GRAPH_CONFIG.gridSteps
+      let phase = this.graph.gridSize * this.scale * graphConfig.gridSteps
       let x0 = 0
       let y0 = 0
 
@@ -159,7 +158,7 @@ function validateBackgroundStyles(vueItem) {
     if (!R.isNil(canvas.ownerSVGElement)) {
       canvas = canvas.ownerSVGElement
     }
-    let tmpGridBackgroundColor = GRAPH_CONFIG.gridBackgroundEnabled ? GRAPH_CONFIG.gridBackgroundColor : '#FFF'
+    let tmpGridBackgroundColor = graphConfig.gridBackgroundEnabled ? graphConfig.gridBackgroundColor : '#FFF'
 
     if (!R.isNil(this.backgroundPageShape)) {
       this.backgroundPageShape.node.style.backgroundRepeat = 'repeat'
@@ -274,13 +273,13 @@ function validate(vueItem) {
   }
 }
 
-const rewriteInterface = (vueItem) => {
-  createSvgGrid(vueItem)
-  validateBackgroundStyles(vueItem)
+const graphUtility = (vueItem) => {
+  createSvgGrid(vueItem, vueItem.graphConfig)
+  validateBackgroundStyles(vueItem, vueItem.graphConfig)
   validateBackgroundPage(vueItem)
   getBackgroundPageBounds(vueItem)
   sizeDidChange(vueItem)
   validate(vueItem)
 }
 
-export {rewriteInterface}
+export {graphUtility}

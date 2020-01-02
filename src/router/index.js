@@ -93,6 +93,15 @@ export const demoRouter = [
       icon: require('@/assets/icon/editor.png')
     },
     component: () => import('@/views/example/graphEditor')
+  },
+  {
+    path: 'groupEditor',
+    name: 'groupEditor',
+    meta: {
+      title: '组编辑',
+      icon: require('@/assets/icon/group.png')
+    },
+    component: () => import('@/views/example/groupEditor')
   }
 ]
 
@@ -101,7 +110,7 @@ export const globalRouter = [
     path: '/',
     name: 'home',
     redirect: '/welcome',
-    component: () => import('./views/layout'),
+    component: () => import('@/views/layout'),
     children: [
       ...demoRouter
     ]

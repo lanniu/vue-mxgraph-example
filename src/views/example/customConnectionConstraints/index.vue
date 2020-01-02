@@ -11,8 +11,7 @@ import {
   mxImage as MxImage,
   mxEllipse as MxEllipse,
   mxRubberband as MxRubberBand,
-  mxConnectionConstraint as MxConnectionConstraint,
-  mxConstraintHandler as MxConstraintHandler
+  mxConnectionConstraint as MxConnectionConstraint
 } from 'mxgraph/javascript/mxClient'
 
 export default {
@@ -32,12 +31,12 @@ export default {
       if (this.R.isNil(this.graph)) {
         return
       }
-      this.rubberBand = new MxRubberBand(this.graph)
       this.graph.setConnectable(true)
-      const pointImg = require('./point.gif')
+      this.rubberBand = new MxRubberBand(this.graph)
+      const pointImg = require('@/assets/point.gif')
 
-      MxConstraintHandler.prototype.pointImage = new MxImage(pointImg, 10, 10)
-      MxConstraintHandler.prototype.createHighlightShape = function () {
+      this.graph.connectionHandler.constraintHandler.pointImage = new MxImage(pointImg, 10, 10)
+      this.graph.connectionHandler.constraintHandler.createHighlightShape = function () {
         return new MxEllipse(null, this.highlightColor, this.highlightColor, 2)
       }
       this.graph.getAllConnectionConstraints = function (terminal) {

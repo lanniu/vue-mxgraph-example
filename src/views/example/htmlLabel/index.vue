@@ -59,18 +59,18 @@ export default {
       }
       const style = 'text;strokeColor=none;fillColor=none;resizable=0;'
 
-      const htmlStr = `<p style="margin: 0; margin-top: 4px;text-align: center">
+      const htmlStr = `<p style="margin: 4px 0 0 0;text-align: center">
                            <i>&lt;&lt;Interface&gt;&gt;</i>
                            <br/>
                            <b>Interface</b>
                        </p>
-                       <hr size="1" />
+                       <hr/>
                        <p style="margin: 0; margin-left: 4px">
                            + field1: Type
                            <br/>
                            + field2: Type
                        </p>
-                       <hr size="1" />
+                       <hr/>
                        <p style="margin: 0; margin-left: 4px">
                            + method1(Type): Type
                            <br/>
