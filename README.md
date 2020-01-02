@@ -4,7 +4,7 @@
 
 # vue-mxgraph-example 
 
-![image](http://picture.lanniu.top/vue-mxgraph-example.gif)
+![image](http://picture.lanniu.top/gitTool.gif)
 
 ## 这个项目提供vue下mxGraph的示例程序
 
