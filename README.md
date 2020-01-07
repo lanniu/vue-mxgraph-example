@@ -20,12 +20,12 @@ English | [简体中文](./README-zh_CN.md)
   <tr>
     <td>CascadeDelete</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/cascadeDelete" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>Toolbar</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/toolbar" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>CustomToolbar</td>
@@ -35,32 +35,32 @@ English | [简体中文](./README-zh_CN.md)
   <tr>
     <td>StencilToolbar</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/stencilToolbar" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>HtmlLabel</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/htmlLabel" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>EdgeStyle</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/edgeStyle" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>CustomConnectionConstraints</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/customConnectionConstraints" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>ManualDrawing</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/manualDrawing" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
   <tr>
     <td>GroupEditor</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/groupEditor" target="_blank">View Online</a></td>
-    <td>Design Notes</td>
+    <td></td>
   </tr>
 </table>
 
