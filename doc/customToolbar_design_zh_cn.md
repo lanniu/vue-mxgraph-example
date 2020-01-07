@@ -71,10 +71,10 @@ export const toolbarItems = [
       strokeColor: '#000000', // 线条颜色
       strokeWidth: '1', // 线条粗细
       shape: MxConstants.SHAPE_LABEL, // 形状
-      align: MxConstants.ALIGN_CENTER, // 水平方向对其方式
-      verticalAlign: MxConstants.ALIGN_BOTTOM, // 垂直方向对其方式
-      imageAlign: MxConstants.ALIGN_CENTER, // 图形水平方向对其方式
-      imageVerticalAlign: MxConstants.ALIGN_TOP, // 图形方向对其方式
+      align: MxConstants.ALIGN_CENTER, // 水平方向对齐方式
+      verticalAlign: MxConstants.ALIGN_BOTTOM, // 垂直方向对齐方式
+      imageAlign: MxConstants.ALIGN_CENTER, // 图形水平方向对齐方式
+      imageVerticalAlign: MxConstants.ALIGN_TOP, // 图形垂直方向对齐方式
       image: inputIcon // 图形
     }
   }
