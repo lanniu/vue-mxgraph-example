@@ -1,6 +1,10 @@
-![image](http://picture.lanniu.top/vue-mxgraph.png)
+<p align="center">
+  <img width="200" src="http://picture.lanniu.top/vue-mxgraph.png">
+</p>
 
-# vue-mxgraph-example 
+<h1 align="center">
+  <span>vue-mxgraph-example</span>
+</h1>
 
 ![image](http://picture.lanniu.top/gitTool.gif)
 
@@ -14,47 +18,47 @@
 <table>
   <tr>
     <td>联级删除(cascadeDelete)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/cascadeDelete">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/cascadeDelete" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>工具箱(toolbar)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/toolbar">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/toolbar" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>自定义工具箱(customToolbar)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/customToolbar">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/customToolbar" target="_blank">在线预览</a></td>
     <td><a href="https://github.com/lanniu/vue-mxgraph-example/tree/master/src/views/example/customToolbar">设计说明</a></td>
   </tr>
   <tr>
     <td>模板工具箱(stencilToolbar)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/stencilToolbar">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/stencilToolbar" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>HTML标签(htmlLabel)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/htmlLabel">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/htmlLabel" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>连线样式(edgeStyle)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/edgeStyle">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/edgeStyle" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>自定义连接点(customConnectionConstraints)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/customConnectionConstraints">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/customConnectionConstraints" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>手动绘图(manualDrawing)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/manualDrawing">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/manualDrawing" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
   <tr>
     <td>组编辑(groupEditor)</td>
-    <td><a href="https://demo.mxgraph.lanniu.top/#/groupEditor">在线预览</a></td>
+    <td><a href="https://demo.mxgraph.lanniu.top/#/groupEditor" target="_blank">在线预览</a></td>
     <td>设计说明</td>
   </tr>
 </table>
