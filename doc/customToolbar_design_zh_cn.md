@@ -35,7 +35,7 @@
 
 可以看出来工具箱是一个数组，其中存放了多个工具项对象，每个工具项中包含了多个属性。
 
-需要注意的是**style**这个属性，这个属性里包含的信息是用于描述此工具项在拖拽后生成的cell的样式，取值范围请参考[官方api](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxConstants-js.html#mxConstants)。
+需要注意的是 **style** 这个属性，这个属性里包含的信息是用于描述此工具项在拖拽后生成的 cell 的样式，取值范围请参考[官方api](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxConstants-js.html#mxConstants)。
 
 了解了数据结构后，我们开始定义具体的数据：
 
@@ -80,9 +80,9 @@ export const toolbarItems = [
   }
 ]
 ```
-(本例中所有的图片都放在public目录下)
+(本例中所有的图片都放在 public 目录下)
 
-为了方便维护我们把以上内容放到toolbar.js文件中。然后在vue组件中导入，并保存为一个名为toolbarItems的计算属性。
+为了方便维护我们把以上内容放到 toolbar.js 文件中。然后在 vue 组件中导入，并保存为一个名为 toolbarItems 的计算属性。
 
 ```
 import {toolbarItems} from './customToolbar/toolbar'
@@ -130,7 +130,7 @@ export default {
     <div class="graphContainer" ref="container"></div>
 </div>
 ```
-最后我们还需要一点css（我使用了scss）：
+最后我们还需要一点 css（我使用了scss）：
 ```
 .customToolbarContainer {
   width: 100%;
@@ -178,7 +178,7 @@ export default {
 ## 编写业务代码
 现在万事俱备，我们开始编写具体的代码。
 
-首先我们需要在vue的data中声明一个graph对象，用于保存mxGraph实例。
+首先我们需要在 vue 的 data 中声明一个 graph 对象，用于保存 mxGraph 实例。
 ```
 data(){
     return {
@@ -210,13 +210,13 @@ initGraph() {
   })
 }
 ```
-上面的代码中，用到了几个graph实例的方法，下面一一介绍一下：
-- [setConnectable](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setConnectable) 设置是允许新建连线。
-- [setCellsEditable](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setCellsEditable) 设置是否允许直接双击修改cell的标签。
-- [convertValueToString](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.convertValueToString) 这是一个函数，接收一个cell，并返回该cell用于显示的label，这里是复写了默认的方法。
-- [addListener](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxEvent-js.html#mxEvent.addListener) 为graph添加一个双击的监听事件。
+上面的代码中，用到了几个 graph 实例的方法，下面一一介绍一下：
+- [setConnectable](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setConnectable) 设置是否允许新建连线。
+- [setCellsEditable](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setCellsEditable) 设置是否允许直接双击修改 cell 的标签。
+- [convertValueToString](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.convertValueToString) 这是一个函数，接收一个 cell，并返回该 cell 用于显示的 label，这里是复写了默认的方法。
+- [addListener](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxEvent-js.html#mxEvent.addListener) 为 graph 添加一个双击的监听事件。
 
-然后我们定义一个方法 **addCell** 用于向画布中添加cell：
+然后我们定义一个方法 **addCell** 用于向画布中添加 cell：
 ```
 addCell(toolItem, x, y) {
   const {width, height} = toolItem
@@ -234,14 +234,14 @@ addCell(toolItem, x, y) {
   }
 }
 ```
-**addCell** 接收三个参数，分别为：工具项对象，生成Cell的X轴坐标，生成Cell的y轴坐标。
+**addCell** 接收三个参数，分别为：工具项对象，X轴坐标，y轴坐标。
 
 方法中分别执行了如下的步骤：
 - 获取了cell默认的宽高信息。
 - 把style拼接为“xxx=xxx;xxx=xxx;”的形式。
-- 调用 model 的beginUpdate方法开始一个事务。
-- 调用 [insertVertex](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.insertVertex) 方法，添加一个cell。
-- 调用 model 的endUpdate方法结束一个事务。
+- 调用 model 的 beginUpdate 方法开始一个事务。
+- 调用 [insertVertex](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.insertVertex) 方法，添加一个 cell。
+- 调用 model 的 endUpdate 方法结束一个事务。
 
 接着就是实现工具箱的核心代码，我们新建一个叫 **initToolbar** 的方法：
 ```
@@ -272,21 +272,21 @@ initToolbar() {
 }
 ```
 方法的目的是让工具项可以被拖拽，且在放手时会触发自定义的回调事件。方法中分别执行了如下的步骤：
-1. 获取所有的工具项dom。
-2. 遍历所有的dom。
-    1. 获取dom对应的工具项对象。
+1. 获取所有的工具项 dom。
+2. 遍历所有的 dom。
+    1. 获取 dom 对应的工具项对象。
     2. 获取工具项的默认宽高。
-    3. 定义drop的回调函数，在函数中执行 **addCell** 方法。
-    4. 定义生成预览的方法，该方法返回一个div，作为预览的图形。
+    3. 定义 drop 的回调函数，在函数中执行 **addCell** 方法。
+    4. 定义生成预览的方法，该方法返回一个 div，作为预览的图形。
     5. 调用[makeDraggable](https://jgraph.github.io/mxgraph/docs/js-api/files/util/mxUtils-js.html#mxUtils.makeDraggable)方法。
 
-需要注意的是 **makeDraggable** 方法，makeDraggable接收多个参数，我们现在需要在意的是前四个：
-1. dom 需要允许被拖拽的dom元素。
-2. graph 绑定的graph对象。
-3. dropHandler drop时的回调函数。
+需要注意的是 **makeDraggable** 方法，makeDraggable 接收多个参数，我们现在需要在意的是前四个：
+1. dom 需要允许被拖拽的 dom 元素。
+2. graph 绑定的 graph 对象。
+3. dropHandler drop 时的回调函数。
 4. preview 拖拽时的预览图形。
 
-最后让我们在mounted生命周期函数中添加如下代码：
+最后让我们在 mounted 生命周期函数中添加如下代码：
 ```
 mounted() {
   this.createGraph()
@@ -301,6 +301,6 @@ mounted() {
 双击cell时，可以在控制台看到输出的信息：
 ![](http://picture.lanniu.top/20200107112010.png)
 
-我们在实际的项目中可以对这个Demo进行一些扩充，比如在addCell时可以针对不同的工具项实例化得到不同的对象，并保存在cell的value属性中，双击cell时可以在弹出的对话框中修改value的属性值。
+我们在实际的项目中可以对这个 Demo 进行一些扩充，比如在 addCell 时可以针对不同的工具项实例化得到不同的对象，并保存在 cell 的 value 属性中，双击 cell 时可以在弹出的对话框中修改 value 的属性值。
 
 至此。
