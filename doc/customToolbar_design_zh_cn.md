@@ -1,3 +1,5 @@
+[English](./customToolbar_design_en_us.md) | 简体中文
+
 ## 概述
 本篇的内容是围绕如何使用 **vue** 和 **mxGraph** 实现一个自定义的工具箱。
 
@@ -207,7 +209,7 @@ initGraph() {
     console.info(cell) // 在控制台输出双击的cell
   })
 }
-``` 
+```
 上面的代码中，用到了几个graph实例的方法，下面一一介绍一下：
 - [setConnectable](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setConnectable) 设置是允许新建连线。
 - [setCellsEditable](https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.setCellsEditable) 设置是否允许直接双击修改cell的标签。
