@@ -200,7 +200,7 @@ initGraph() {
   }
   this.graph.setConnectable(true) // 允许连线
   this.graph.setCellsEditable(false) // 不可修改
-  this.graph.convertValueToString = (cell) => { // 从value中获取显示的内容
+  this.graph.convertValueToString = (cell) => { // 根据cell生成显示的标签
     return this.R.prop('title', cell)
   }
   this.graph.addListener(MxEvent.DOUBLE_CLICK, (graph, evt) => { // 监听双击事件
