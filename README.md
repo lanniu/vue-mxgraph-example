@@ -30,7 +30,7 @@ English | [简体中文](./README-zh_CN.md)
   <tr>
     <td>CustomToolbar</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/customToolbar" target="_blank">View Online</a></td>
-    <td><a href="https://github.com/lanniu/vue-mxgraph-example/tree/master/src/views/example/customToolbar">Design Notes</a></td>
+    <td><a href="./doc/customToolbar_design_en_us.md">Design Notes</a></td>
   </tr>
   <tr>
     <td>StencilToolbar</td>

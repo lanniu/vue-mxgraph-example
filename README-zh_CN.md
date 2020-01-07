@@ -31,7 +31,7 @@
   <tr>
     <td>自定义工具箱</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/customToolbar" target="_blank">在线查看</a></td>
-    <td><a href="https://github.com/lanniu/vue-mxgraph-example/tree/master/src/views/example/customToolbar">设计说明</a></td>
+    <td><a href="./doc/customToolbar_design_zh_cn.md">设计说明</a></td>
   </tr>
   <tr>
     <td>模板工具箱</td>
