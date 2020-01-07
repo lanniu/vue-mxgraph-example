@@ -21,12 +21,12 @@
   <tr>
     <td>联级删除</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/cascadeDelete" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>工具箱</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/toolbar" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>自定义工具箱</td>
@@ -36,32 +36,32 @@
   <tr>
     <td>模板工具箱</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/stencilToolbar" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>HTML标签</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/htmlLabel" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>连线样式</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/edgeStyle" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>自定义连接点</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/customConnectionConstraints" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>手动绘图</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/manualDrawing" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
   <tr>
     <td>组编辑</td>
     <td><a href="https://demo.mxgraph.lanniu.top/#/groupEditor" target="_blank">在线查看</a></td>
-    <td>设计说明</td>
+    <td></td>
   </tr>
 </table>
 
