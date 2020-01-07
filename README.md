@@ -3,12 +3,12 @@
 </p>
 
 <h1 align="center">
-  <a href="https://demo.mxgraph.lanniu.top" target="_blank">vue-mxgraph-example</a>
+  <a href="https://demo.mxgraph.lanniu.top" target="_blank">vue mxGraph example</a>
 </h1>
 
 ![image](http://picture.lanniu.top/gitTool.gif)
 
-English | [简体中文](README-zh_CN.md)
+English | [简体中文](./README-zh_CN.md)
 
 ## Features
 * Provide mxGraph sample programs under vue to help you get started quickly.
@@ -63,7 +63,7 @@ English | [简体中文](README-zh_CN.md)
     <td>Design Notes</td>
   </tr>
 </table>
-    
+
 ## Contact
 * weChat： **lanniu770314**
 * email： **271067929@qq.com**
