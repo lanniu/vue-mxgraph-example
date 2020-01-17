@@ -31,6 +31,9 @@ import {
   mxConstants as MxConstants,
   mxStencilRegistry as MxStencilRegistry,
   mxStencil as MxStencil,
+  mxCodec as MxCodec,
+  mxGraphModel as MxGraphModel,
+  mxGeometry as MxGeometry
 } from 'mxgraph/javascript/mxClient'
 
 const path = require('path')
@@ -42,7 +45,7 @@ export default {
       graph: null,
       keyHandler: null,
       palettes: {},
-      jsonStr: ''
+      graphXml: ''
     }
   },
   methods: {
@@ -51,31 +54,20 @@ export default {
       this.$refs.container.style.background = 'url("./mxgraph/images/grid.gif")'
     },
     encode(graph) {
-      const JSONGetter = this.R.compose(
-        JSON.stringify, // 序列化
-        this.R.map(this.R.pick(['style', 'geometry'])), // 取出cell的style和geometry
-        this.R.filter(this.R.propEq('customer', true)), // 过滤出有用的cell
-        this.R.values, this.R.propOr({}, 'cells') // 获取model中的所有的cell
-      )
+      const encoder = new MxCodec()
+      const result = encoder.encode(graph.getModel())
 
-      return JSONGetter(graph.getModel())
+      return MxUtils.getPrettyXml(result)
     },
-    decode(jsonStr, graph) {
-      const nodes = JSON.parse(jsonStr)
-      const parent = graph.getDefaultParent()
+    decode(graphXml, graph) {
+      window['mxGraphModel'] = MxGraphModel
+      window['mxGeometry'] = MxGeometry
 
-      this.R.forEach((node) => {
-        const {x, y, width, height} = node['geometry']
+      const xmlDocument = MxUtils.parseXml(graphXml)
+      const decoder = new MxCodec(xmlDocument)
+      const node = xmlDocument.documentElement
 
-        graph.getModel().beginUpdate()
-        try {
-          let vertex = graph.insertVertex(parent, null, null, x, y, width, height, node['style'])
-
-          vertex.customer = true
-        } finally {
-          graph.getModel().endUpdate()
-        }
-      }, nodes)
+      decoder.decode(node, graph.getModel())
     },
     initGraph() {
       if (this.R.isNil(this.graph)) {
@@ -94,8 +86,8 @@ export default {
 
       this.graph.popupMenuHandler.factoryMethod = (menu) => {
         menu.addItem('导出', null, () => {
-          this.jsonStr = this.encode(this.graph)
-          this.$alert(this.jsonStr)
+          this.graphXml = this.encode(this.graph)
+          this.$alert(this.graphXml)
           this.$message('导出成功')
         })
         menu.addSeparator()
@@ -105,7 +97,7 @@ export default {
               this.graph.selectAll()
               this.graph.removeCells(this.graph.getSelectionCells())
               setTimeout(() => {
-                this.decode(this.jsonStr, this.graph)
+                this.decode(this.graphXml, this.graph)
                 this.$message('导入成功')
               }, 1000)
             })
