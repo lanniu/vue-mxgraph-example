@@ -21,12 +21,7 @@
 </template>
 
 <script>
-import {
-  mxGraph as MxGraph,
-  mxUtils as MxUtils,
-  mxEvent as MxEvent,
-  mxRubberband as MxRubberBand
-} from 'mxgraph/javascript/mxClient'
+import {MxEvent, MxGraph, MxRubberBand, MxUtils} from '@/mxgraph'
 import ChangeStatusDialog from '@/views/example/edgeStyle/changeStatusDialog'
 
 export default {

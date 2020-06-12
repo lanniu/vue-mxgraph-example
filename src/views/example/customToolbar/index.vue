@@ -14,10 +14,7 @@
 
 <script>
 import {toolbarItems} from './toolbar'
-import {
-  mxEvent as MxEvent,
-  mxGraph as MxGraph, mxUtils as MxUtils
-} from 'mxgraph/javascript/mxClient'
+import {MxEvent, MxGraph, MxUtils} from '@/mxgraph'
 
 export default {
   name: 'index2',

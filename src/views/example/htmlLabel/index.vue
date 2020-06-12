@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import {
-  mxGraph as MxGraph
-} from 'mxgraph/javascript/mxClient'
+import {MxGraph} from '@/mxgraph'
 
 export default {
   name: 'htmlLabel',
