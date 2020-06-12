@@ -1,7 +1,5 @@
-import {
-  mxConstants as MxConstants,
-  mxRectangle as MxRectangle
-} from 'mxgraph/javascript/mxClient'
+import {MxConstants, MxRectangle} from '@/mxgraph'
+
 const PAGE_FORMATS = {}
 
 PAGE_FORMATS['a0'] = {name: 'a0', text: 'A0 (841 mm x 1189 mm)', format: new MxRectangle(0, 0, 4681, 3300)}

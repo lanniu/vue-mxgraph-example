@@ -3,37 +3,25 @@
 </template>
 
 <script>
+import {MxEvent, MxGraph, MxKeyHandler, MxPoint, MxRubberBand} from '@/mxgraph'
 import {
-  mxGraph as MxGraph,
-  mxEvent as MxEvent,
-  mxPoint as MxPoint,
-  mxRubberband as MxRubberBand,
-  mxKeyHandler as MxKeyHandler
-} from 'mxgraph/javascript/mxClient'
-import {
-  graphUtility,
+  createSvgGrid,
+  getBackgroundPageBounds,
+  lazyZoom,
   resetScrollbars,
-  lazyZoom
+  sizeDidChange,
+  validate,
+  validateBackgroundPage,
+  validateBackgroundStyles
 } from '@/components/graphEditor/graphUtility'
 import {PAGE_FORMATS} from '@/components/graphEditor/pageFormat'
+import {GRAPH_CONFIG} from '@/components/graphEditor/graphConfig'
 
-const GRAPH_CONFIG = {
-  pageInfo: 'a4',
-  gridSize: 10,
-  gridEnabled: true,
-  gridSteps: 5,
-  minGridSize: 1,
-  scale: 1.00,
-  gridColor: '#acacac',
-  gridBackgroundEnabled: true,
-  gridBackgroundColor: '#ffffff'
-}
 
 export default {
   name: 'graphEditor',
   data() {
     return {
-      graphConfig: {},
       container: null,
       keyHandler: null,
       graph: null,
@@ -46,44 +34,46 @@ export default {
     }
   },
   methods: {
-    setPageFormat() {
+    getPageFormat() {
       let format = this.R.prop('format', PAGE_FORMATS[GRAPH_CONFIG.pageInfo.toLowerCase()])
 
       if (this.R.isNil(format)) {
-        format = PAGE_FORMATS['a4']['format']
+        format = PAGE_FORMATS.a4.format
       }
-      this.graph.pageFormat = format
-    },
-    createGraph() {
-      this.graph = new MxGraph(this.container)
+      return format
     },
     initGraph() {
-      if (this.R.isNil(this.graph)) {
-        return
-      }
-      this.rubberBand = new MxRubberBand(this.graph)
-      this.graph.tolerance = 12
+      // 当拖动时鼠标靠近容器边缘时，图形是否应该自动滚动。
       this.graph.autoScroll = false
+      // 指定是否应在多个页面之间绘制虚线。
       this.graph.pageBreaksVisible = true
+      // 指定分页符的颜色。
       this.graph.pageBreakColor = 'none'
-      MxRubberBand.prototype.defaultOpacity = 30
-      MxEvent.disableContextMenu(this.container)
-
+      // 指定背景页的页面格式。
+      this.graph.pageFormat = this.getPageFormat()
+      // 指定背景页的比例。
+      this.graph.pageScale = GRAPH_CONFIG.scale
+      // move操作处理为single click的容差
+      this.graph.setTolerance(12)
+      // 是否应该启用网格。
+      this.graph.setGridEnabled(GRAPH_CONFIG.gridEnabled)
+      // 设置网格尺寸
+      this.graph.setGridSize(GRAPH_CONFIG.gridSize)
       this.graph.setPanning(true)
-      this.graph.pageScale = GRAPH_CONFIG['scale']
-      this.graph.pageScale = GRAPH_CONFIG['scale']
-      this.graph.gridSize = GRAPH_CONFIG['gridSize']
-      this.graph.gridEnabled = GRAPH_CONFIG['gridEnabled']
-      this.graph.setPanning = true
-      this.setPageFormat()
+      // 当图的大小发生变化时调用。
+      this.graph.sizeDidChange = sizeDidChange
+      // 重置滚动条
+      resetScrollbars(this.graph)
 
-      graphUtility(this)
-
-      this.graph.view.validate()
-      this.graph.sizeDidChange()
-
-      resetScrollbars(this)
-
+    },
+    initGraphView() {
+      this.graph.view.getBackgroundPageBounds = getBackgroundPageBounds
+      this.graph.view.validateBackgroundPage = validateBackgroundPage
+      this.graph.view.validateBackgroundStyles = validateBackgroundStyles
+      this.graph.view.createSvgGrid = createSvgGrid
+      this.graph.view.validate = validate
+    },
+    initGraphListener() {
       this.graph.container.addEventListener('scroll', () => {
         this.oldScrollTop = this.graph.container.scrollTop
         this.oldScrollLeft = this.graph.container.scrollLeft
@@ -93,12 +83,7 @@ export default {
           evt.preventDefault()
         }
       })
-      this.keyHandler = new MxKeyHandler(this.graph)
-      this.keyHandler.bindKey(46, () => {
-        const cells = this.graph.getSelectionCells() || []
 
-        this.graph.removeCells(cells, true)
-      })
       MxEvent.addMouseWheelListener((evt, up) => {
         if (evt.ctrlKey) {
           let source = MxEvent.getSource(evt)
@@ -114,11 +99,27 @@ export default {
         }
       })
     },
+    initGraphHandler() {
+      this.keyHandler.bindKey(46, () => {
+        const cells = this.graph.getSelectionCells() || []
+        this.graph.removeCells(cells, true)
+      })
+    },
     init() {
       this.container = this.$refs.container
-      this.graphConfig = Object.assign({}, GRAPH_CONFIG)
-      this.createGraph()
+      this.graph = new MxGraph(this.container)
+      this.rubberBand = new MxRubberBand(this.graph)
+      this.keyHandler = new MxKeyHandler(this.graph)
+
       this.initGraph()
+      this.initGraphView()
+      this.initGraphListener()
+      this.initGraphHandler()
+
+      MxEvent.disableContextMenu(this.container)
+      // 调用validateCell和validateCellState并使用getBoundingBox更新graphBounds。
+      this.graph.view.validate()
+      this.graph.sizeDidChange()
       return this.graph
     }
   },

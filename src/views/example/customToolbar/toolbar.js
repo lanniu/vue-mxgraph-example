@@ -1,6 +1,4 @@
-import {
-  mxConstants as MxConstants
-} from 'mxgraph/javascript/mxClient'
+import {MxConstants} from '@/mxgraph'
 
 const outputIcon = './icon/output.png'
 const inputIcon = './icon/input.png'

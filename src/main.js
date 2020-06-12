@@ -1,5 +1,4 @@
 import 'element-ui/lib/theme-chalk/index.css'
-import '@/style/mxgraph.css'
 import '@/style/style.scss'
 
 import Vue from 'vue'

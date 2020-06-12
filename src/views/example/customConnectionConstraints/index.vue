@@ -5,14 +5,7 @@
 </template>
 
 <script>
-import {
-  mxGraph as MxGraph,
-  mxPoint as MxPoint,
-  mxImage as MxImage,
-  mxEllipse as MxEllipse,
-  mxRubberband as MxRubberBand,
-  mxConnectionConstraint as MxConnectionConstraint
-} from 'mxgraph/javascript/mxClient'
+import {MxConnectionConstraint, MxEllipse, MxGraph, MxImage, MxPoint, MxRubberBand} from '@/mxgraph'
 
 export default {
   name: 'customShape',

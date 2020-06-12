@@ -4,15 +4,7 @@
 </template>
 
 <script>
-import {
-  mxToolbar as MxToolbar,
-  mxGraphModel as MxGraphModel,
-  mxGraph as MxGraph,
-  mxCell as MxCell,
-  mxGeometry as MxGeometry,
-  mxEvent as MxEvent,
-  mxUtils as MxUtils
-} from 'mxgraph/javascript/mxClient'
+import {MxCell, MxEvent, MxGeometry, MxGraph, MxGraphModel, MxToolbar, MxUtils} from '@/mxgraph'
 
 export default {
   name: 'HelloWorld',

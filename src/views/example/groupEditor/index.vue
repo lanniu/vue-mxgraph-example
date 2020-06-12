@@ -10,14 +10,7 @@
 </template>
 
 <script>
-import {
-  mxPoint as MxPoint,
-  mxUtils as MxUtils,
-  mxImage as MxImage,
-  mxEllipse as MxEllipse,
-  mxCellState as MxCellState,
-  mxConnectionConstraint as MxConnectionConstraint
-} from 'mxgraph/javascript/mxClient'
+import {MxCellState, MxConnectionConstraint, MxEllipse, MxImage, MxPoint, MxUtils} from '@/mxgraph'
 import GraphEditor from '@/components/graphEditor'
 import {toolItems} from '@/views/example/groupEditor/toolbarItems'
 

@@ -23,18 +23,18 @@
 
 <script>
 import {
-  mxUtils as MxUtils,
-  mxGraph as MxGraph,
-  mxEvent as MxEvent,
-  mxKeyHandler as MxKeyHandler,
-  mxRubberband as MxRubberBand,
-  mxConstants as MxConstants,
-  mxStencilRegistry as MxStencilRegistry,
-  mxStencil as MxStencil,
-  mxCodec as MxCodec,
-  mxGraphModel as MxGraphModel,
-  mxGeometry as MxGeometry
-} from 'mxgraph/javascript/mxClient'
+  MxCodec,
+  MxConstants,
+  MxEvent,
+  MxGeometry,
+  MxGraph,
+  MxGraphModel,
+  MxKeyHandler,
+  MxRubberBand,
+  MxStencil,
+  MxStencilRegistry,
+  MxUtils
+} from '@/mxgraph'
 
 const path = require('path')
 

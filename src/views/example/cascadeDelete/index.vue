@@ -5,12 +5,7 @@
 </template>
 
 <script>
-import {
-  mxGraph as MxGraph,
-  mxEvent as MxEvent,
-  mxUndoManager as MxUndoManager,
-  mxKeyHandler as MxKeyHandler
-} from 'mxgraph/javascript/mxClient'
+import {MxEvent, MxGraph, MxKeyHandler, MxUndoManager} from '@/mxgraph'
 
 const DEFAULT_CELL_X = 0
 const DEFAULT_CELL_Y = 0

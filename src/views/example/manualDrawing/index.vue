@@ -6,10 +6,8 @@
 
 <script>
 import {fromEvent} from 'rxjs'
-import {takeUntil, map, concatAll} from 'rxjs/operators'
-import {
-  mxGraph as MxGraph
-} from 'mxgraph/javascript/mxClient'
+import {concatAll, map, takeUntil} from 'rxjs/operators'
+import {MxGraph} from '@/mxgraph'
 
 export default {
   name: 'manualDrawing',
