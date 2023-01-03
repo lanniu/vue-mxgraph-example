@@ -27,7 +27,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-service": "^5.0.8",
     "sass-loader": "^8.0.0",
     "script-loader": "^0.7.2",
     "exports-loader": "^0.7.0",
